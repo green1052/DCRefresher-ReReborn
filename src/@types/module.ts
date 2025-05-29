@@ -1,6 +1,10 @@
 export {};
 
 declare global {
+    interface ItemToRefresherMap {
+       
+    }
+    
     type SettingsStore = Record<string, Record<string, RefresherSettings>>;
     
     type RefresherSettings =
@@ -31,5 +35,23 @@ declare global {
 
     interface RefresherOptionSettings extends RefresherBaseSettings<"option", string> {
         items: unknown;
+    }
+
+
+    interface RefresherModule {
+        name: string;
+        description: string;
+        url?: RegExp;
+        status: Record<string, unknown>;
+        data?: Record<string, unknown>;
+        memory: Record<string, unknown>;
+        enable: boolean;
+        default_enable: boolean;
+        settings?: Record<string, SettingsStore>;
+        shortcuts: Record<string, () => void>;
+        update: Record<any,  any>
+        require?:  Array<keyof ItemToRefresherMap>;
+        func?: (...args: any) => void;
+        revoke?: (...args: any) => void;
     }
 }
